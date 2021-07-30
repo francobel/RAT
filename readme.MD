@@ -12,7 +12,6 @@ Features:
 
 To-do:
 - Send data in a digestible manner to C2 server
-- Mic/Webcam Control
 - Send Victim's files to C2
 - Comment/Document Code
 - Error Check (Safe Programming)
