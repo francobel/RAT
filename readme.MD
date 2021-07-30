@@ -1,6 +1,6 @@
 # Remote Access Trojan
 
-Windows based RAT in C for learning purposes.
+Windows based RAT written in C for learning purposes.
 
 Features:
 - Keylogger
