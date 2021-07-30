@@ -1,17 +1,16 @@
 # Remote Access Trojan (FOX)
 
-Windows based RAT written in C for learning purposes.
+Windows based RAT written in C
 
 Features:
 - Keylogger
-- Retrieve user info
-- Retrieve clipboard contents
+- Capture system/user info
+- Capture clipboard contents
 - View directory contents
 - Screenshots
 
-
 To-do:
-- Send data in a digestible manner to C2 server
-- Send Victim's files to C2
+- Exfiltrate captured data in a digestible manner to C2 server
+- Exfiltrate files to C2
 - Comment/Document Code
 - Error Check (Safe Programming)
