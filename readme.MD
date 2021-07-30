@@ -1,4 +1,4 @@
-# Remote Access Trojan
+# Remote Access Trojan (FOX)
 
 Windows based RAT written in C for learning purposes.
 
