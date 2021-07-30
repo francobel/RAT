@@ -26,8 +26,8 @@ void getMemoryUsage()
 	double usedMem   = (statex.ullTotalPhys / DIV) - (statex.ullAvailPhys / DIV);
 	double totalPage = (statex.ullTotalPageFile / DIV);
 	double usedPage  = (statex.ullTotalPageFile / DIV) - (statex.ullAvailPageFile / DIV);
-	double totalVMem = (statex.ullTotalVirtual / DIV);
-	double usedVMem  = (statex.ullTotalVirtual / DIV) - (statex.ullAvailVirtual / DIV);
+	double totalVMem = (statex.ullTotalVirtual  / DIV);
+	double usedVMem  = (statex.ullTotalVirtual  / DIV) - (statex.ullAvailVirtual / DIV);
 
 	_tprintf(_T("Memory Usage:    %*ld%% GB\n"), 1, statex.dwMemoryLoad);
 	_tprintf(_T("Physical Memory: %.2f/%.2f GB\n"), usedMem / 100, totalMem / 100);
