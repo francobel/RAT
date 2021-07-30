@@ -1,6 +1,6 @@
 # Remote Access Trojan
 
-I'm currently working on creating a Windows based RAT in C for learning purposes.
+Windows based RAT in C for learning purposes.
 
 Features:
 - Keylogger
