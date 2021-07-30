@@ -8,10 +8,13 @@ int list()
 
 	_tprintf(TEXT("List from (Path): "));
 	_getts_s(input, MAX_PATH);
+
 	_tprintf(TEXT("Recursive? (Y/N): "));
 	_getts_s(recursive, 2);
+
 	_tprintf(TEXT("List files? (Y/N): "));
 	_getts_s(files, 2);
+
 	_tprintf(TEXT("\n"));
 
 	ExpandEnvironmentStrings(input, buff, MAX_PATH);

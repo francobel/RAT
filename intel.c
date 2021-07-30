@@ -41,12 +41,11 @@ void getSystemInfo()
 	SYSTEM_INFO siSysInfo;
 	GetSystemInfo(&siSysInfo);
 
-	_tprintf(_T("Hardware information: \n"));
-	_tprintf(_T("OEM ID: %u\n"), siSysInfo.dwOemId);
-	_tprintf(_T("Number of processors: %u\n"), siSysInfo.dwNumberOfProcessors);
-	_tprintf(_T("Page size: %u\n"), siSysInfo.dwPageSize);
-	_tprintf(_T("Processor type: %u\n"), siSysInfo.dwProcessorType);
-	_tprintf(_T("Minimum application address: %lx\n"), siSysInfo.lpMinimumApplicationAddress);
-	_tprintf(_T("Maximum application address: %lx\n"), siSysInfo.lpMaximumApplicationAddress);
+	_tprintf(_T("OEM ID:          %u\n"), siSysInfo.dwOemId);
+	_tprintf(_T("# of processors: %u\n"), siSysInfo.dwNumberOfProcessors);
+	_tprintf(_T("Page size:       %u\n"), siSysInfo.dwPageSize);
+	_tprintf(_T("Processor type:  %u\n"), siSysInfo.dwProcessorType);
+	_tprintf(_T("Min app address: %lx\n"), siSysInfo.lpMinimumApplicationAddress);
+	_tprintf(_T("Max app address: %lx\n"), siSysInfo.lpMaximumApplicationAddress);
 	_tprintf(_T("Active processor mask: %u\n\n"), siSysInfo.dwActiveProcessorMask);
 }
