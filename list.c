@@ -1,4 +1,4 @@
-#include "list.h"
+#include "config.h"
 
 int list()
 {
@@ -8,13 +8,10 @@ int list()
 
 	_tprintf(TEXT("List from (Path): "));
 	_getts_s(input, MAX_PATH);
-
 	_tprintf(TEXT("Recursive? (Y/N): "));
 	_getts_s(recursive, 2);
-
 	_tprintf(TEXT("List files? (Y/N): "));
 	_getts_s(files, 2);
-
 	_tprintf(TEXT("\n"));
 
 	ExpandEnvironmentStrings(input, buff, MAX_PATH);
@@ -39,7 +36,8 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 
 	findHandle = FindFirstFile(pathArr, &findData);
 
-	do {
+	do 
+	{
 		if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			if (_tcscmp(findData.cFileName, TEXT(".")) && _tcscmp(findData.cFileName, TEXT("..")))

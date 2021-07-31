@@ -1,6 +1,4 @@
-#include "intel.h"
-
-#define DIV 10737418
+#include "config.h"
 
 void getUserInfo()
 {

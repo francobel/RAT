@@ -1,8 +1,4 @@
-#include "clipboard.h"
-#include "intel.h"
-#include "keylogger.h"
-#include "list.h"
-#include "screenshot.h"
+#include "config.h"
 
 int _tmain()
 {

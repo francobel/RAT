@@ -1,4 +1,4 @@
-#include "clipboard.h"
+#include "config.h"
 
 void clipboard()
 {
