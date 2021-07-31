@@ -1,4 +1,4 @@
-#include "screenshot.h"
+#include "config.h"
 
 void screenshot()
 {

