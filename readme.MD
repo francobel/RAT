@@ -14,3 +14,4 @@ To-do:
 - Exfiltrate files to C2
 - Comment/Document Code
 - Error Check (Safe Programming)
+- Bypass Windows Defender
