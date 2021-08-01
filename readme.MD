@@ -8,7 +8,7 @@ Features:
 - Capture clipboard contents
 - View directory contents
 - Screenshots
-- Exfiltrate captured data
+- Exfiltrate data
 
 To-do:
 - Exfiltrate files
