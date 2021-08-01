@@ -8,10 +8,10 @@ Features:
 - Capture clipboard contents
 - View directory contents
 - Screenshots
-- Exfiltrate captured data to C2 server
+- Exfiltrate captured data
 
 To-do:
-- Exfiltrate files to C2
+- Exfiltrate files
 - Comment/Document Code
 - Error Check (Safe Programming)
 - Bypass Windows Defender
