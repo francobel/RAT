@@ -5,27 +5,27 @@ void screenshot()
     int height = GetSystemMetrics(SM_CYVIRTUALSCREEN) - GetSystemMetrics(SM_YVIRTUALSCREEN);
     int width  = GetSystemMetrics(SM_CXVIRTUALSCREEN) - GetSystemMetrics(SM_XVIRTUALSCREEN);
 
-    HDC hScreen = GetDC(NULL);
-    HDC hDC = CreateCompatibleDC(hScreen);
-    HBITMAP hBitmap = CreateCompatibleBitmap(hScreen, width, height);
-    HGDIOBJ old_obj = SelectObject(hDC, hBitmap);
-    int bRet = BitBlt(hDC, 0, 0, width, height, hScreen, 0, 0, SRCCOPY);
+    HDC screenContext = GetDC(NULL);
+    HDC compatContext = CreateCompatibleDC(screenContext);
+    HBITMAP bitmap = CreateCompatibleBitmap(screenContext, width, height);
+    HGDIOBJ old_obj = SelectObject(compatContext, bitmap);
+    int bRet = BitBlt(compatContext, 0, 0, width, height, screenContext, 0, 0, SRCCOPY);
 
-    createBMPFile(L"C:\\Users\\Franco\\Desktop\\xxx.bmp", createBitmapInfo(hBitmap), hBitmap, hDC);
+    createBMPFile(L"C:\\Users\\Franco\\Desktop\\xxx.bmp", createBitmapInfo(bitmap), bitmap, compatContext);
 
-    SelectObject(hDC, old_obj);
-    DeleteDC(hDC);
-    ReleaseDC(NULL, hScreen);
-    DeleteObject(hBitmap);
+    SelectObject(compatContext, old_obj);
+    DeleteDC(compatContext);
+    ReleaseDC(NULL, screenContext);
+    DeleteObject(bitmap);
 }
 
-PBITMAPINFO createBitmapInfo(HBITMAP hBmp)
+PBITMAPINFO createBitmapInfo(HBITMAP hBitmap)
 {
     PBITMAPINFO mapInfo;
     BITMAP bitmap;
     WORD colorBits;
 
-    GetObject(hBmp, sizeof(BITMAP), (LPSTR)&bitmap);
+    GetObject(hBitmap, sizeof(BITMAP), (LPSTR)&bitmap);
     colorBits = (WORD)(bitmap.bmPlanes * bitmap.bmBitsPixel);
     mapInfo = (PBITMAPINFO)malloc(sizeof(BITMAPINFOHEADER));
 
@@ -69,4 +69,5 @@ void createBMPFile(LPTSTR pszFile, PBITMAPINFO pbi, HBITMAP hBMP, HDC hDC)
 
     CloseHandle(handle);
     free(bytes);
+    free(pbi);
 }

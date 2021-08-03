@@ -14,9 +14,7 @@ int _tmain()
 
 		if (!strcmp(input, "1"))
 		{
-			getUserInfo();
-			getMemoryUsage();
-			getSystemInfo();
+			getIntel();
 		}
 		else if (!strcmp(input, "2"))
 		{

