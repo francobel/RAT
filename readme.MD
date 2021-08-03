@@ -1,6 +1,6 @@
 # Remote Access Trojan (FOX)
 
-Windows based RAT written in C
+Franco's Windows based RAT written in C
 
 Features:
 - Keylogger
