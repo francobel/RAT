@@ -14,12 +14,12 @@
  RETURNS: int = 0 - returned successfully, 1 - returned with error
 
  DESCRIPTION: User is prompted for 3 different inputs. 
-			  1. What file path/directory they want to list the files in?
-			  2. Do they want to recursively list the files within the
-			     directory? (List contents of folders of the folders...)
-		      3. Do they want to list files too?
+	      1. What file path/directory they want to list the files in?
+	      2. Do they want to recursively list the files within the
+		 directory? (List contents of folders of the folders...)
+	      3. Do they want to list files too?
 
-			  listDir function is then called with the specifications.
+	      listDir function is then called with the specifications.
 *************************************************************************/
 int list();
 
@@ -27,9 +27,9 @@ int list();
  FILE: list.c
 
  PARAMS: 1. STRSAFE_LPCWSTR = Path of directory you want to list.
-		 2. STRSAFE_LPCWSTR = Char that indicates whether to list files.
-		 3. STRSAFE_LPCWSTR = Char that indicates listing recursively.
-		 4.	int = Indicates level of recursion.
+	 2. STRSAFE_LPCWSTR = Char that indicates whether to list files.
+	 3. STRSAFE_LPCWSTR = Char that indicates listing recursively.
+	 4. int = Indicates level of recursion.
 
  RETURNS: int = 0 - returned successfully, 1 - returned with error
 
@@ -41,14 +41,11 @@ int listDir(STRSAFE_LPCWSTR, STRSAFE_LPCWSTR, STRSAFE_LPCWSTR, int);
 /***********************************************************************
  FILE: networking.c
 
- PARAMS: 1. char* = If file is being sent, filepath.
-					If data is being sent, data.
-		 2. int = 1 - file is being sent, 0 - data is being sent
+ PARAMS: N/A
 
  RETURNS: int = 0 - returned successfully, 1 - returned with error
 
- DESCRIPTION: Socket is opened, data is sent, data is received, socket
-			  socket is closed.
+ DESCRIPTION: 
 *************************************************************************/
 int sendFile();
 
@@ -56,8 +53,8 @@ int sendFile();
  FILE: networking.c
 
  PARAMS: 1. char* = If file is being sent, filepath.
-					If data is being sent, data.
-		 2. int = 1 - file is being sent, 0 - data is being sent
+	    If data is being sent, data.
+	 2. int = 1 - file is being sent, 0 - data is being sent
 
  RETURNS: int = 0 - returned successfully, 1 - returned with error
 
