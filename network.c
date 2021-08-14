@@ -32,6 +32,8 @@ int sendFile()
 		_tprintf(_T("ERROR: sendHome function failed.", ));
 		return 1;
 	}
+
+	return 0;
 }
 
 int sendHome(char* buffer, int file)

@@ -1,4 +1,5 @@
 #include "config.h"
+#define DIV 10737418
 
 int getIntel()
 {
