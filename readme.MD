@@ -1,8 +1,8 @@
 ![alt text](https://github.com/francobel/RAT/blob/main/Images/xof.png)
-# <p align="center"> FOX </p>
-
-### <p align="center"> Windows based Remote Access Tool written in C <p>
-
+# <p align="center"> Code Name: Fox </p>
+### <p align="center"> Windows based Remote Access Tool <p>
+#### <p align="center"> Language: C - Compiler: MSVC - Dependecies: WinApi, WinSock2 <p>
+----
 ### Features:
 - [X] Keylogger
 - [X] Capture system/user info
@@ -11,3 +11,5 @@
 - [X] Screenshots
 - [X] Exfiltrate data
 - [X] Exfiltrate files
+  
+Note: For a description of all of the functions used visit the file config.h
