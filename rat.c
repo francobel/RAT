@@ -57,6 +57,7 @@ int _tmain()
 		}
 		else if (!strcmp(input, "6"))
 		{
+			//Send a file chosen by the user to the Attacker's IP.
 			if (sendFile())
 			{
 				_tprintf(_T("ERROR: SendFile functionality."));
