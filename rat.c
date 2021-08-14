@@ -57,7 +57,10 @@ int _tmain()
 		}
 		else if (!strcmp(input, "6"))
 		{
-			sendFile();
+			if (sendFile())
+			{
+				_tprintf(_T("ERROR: SendFile functionality."));
+			}
 		}
 		else
 		{
