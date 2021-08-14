@@ -5,11 +5,11 @@
 ----
 ### Features:
 - [X] Keylogger
+- [X] Screenshots
+- [X] View directory contents
 - [X] Capture system and user info
 - [X] Capture clipboard contents
-- [X] View directory contents
-- [X] Screenshots
 - [X] Exfiltrate data
 - [X] Exfiltrate files
   
-Note: For a description of all of the functions used visit the file config.h
+###### Note: For a description of all of the functions used visit the file config.h
