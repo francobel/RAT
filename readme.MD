@@ -4,10 +4,10 @@
 ### <p align="center"> Windows based Remote Access Tool written in C <p>
 
 ### Features:
-##### - Keylogger
-##### - Capture system/user info
-##### - Capture clipboard contents
-##### - View directory contents
-##### - Screenshots
-##### - Exfiltrate data
-##### - Exfiltrate files
+- [X] Keylogger
+- [X] Capture system/user info
+- [X] Capture clipboard contents
+- [X] View directory contents
+- [X] Screenshots
+- [X] Exfiltrate data
+- [X] Exfiltrate files
