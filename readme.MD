@@ -5,7 +5,7 @@
 ----
 ### Features:
 - [X] Keylogger
-- [X] Capture system/user info
+- [X] Capture system and user info
 - [X] Capture clipboard contents
 - [X] View directory contents
 - [X] Screenshots
