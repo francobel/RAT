@@ -4,7 +4,7 @@
 #### <p align="center"> Language: C - Compiler: MSVC - Dependecies: WinApi, WinSock2 <p>
 ---
 Features                    | In Progress
---------------------------- | -------------
+:-------------------------: | :-----------:
 Keylogger                   | Exfiltrate Screenshots
 Screenshots                 | Obfuscate Code
 View directory contents   
@@ -12,5 +12,5 @@ Capture system/user info
 Capture clipboard contents
 Exfiltrate data
 Exfiltrate files
-  
-###### Note: For a description of all of the functions used visit the file config.h
+
+###### Note: For a description of the project's functions review the file config.h.
