@@ -10,6 +10,3 @@ Features:
 - Screenshots
 - Exfiltrate data
 - Exfiltrate files
-
-To-do:
-- Obfuscation
