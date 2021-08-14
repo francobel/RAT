@@ -10,8 +10,6 @@ Features:
 - Screenshots
 - Exfiltrate data
 - Exfiltrate files
-- Comment/Document Code
-- Error Check (Safe Programming)
 
 To-do:
-- Bypass Windows Defender
+- Obfuscation
