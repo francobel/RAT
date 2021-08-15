@@ -5,8 +5,8 @@
 ---
 Features                    | In Progress
 :-------------------------: | :-----------:
-Keylogger                   | Exfiltrate Screenshots
-Screenshots                 | Obfuscate Code
+Keylogger                   | Obfuscate Code
+Screenshots                 | 
 View directory contents   
 Capture system/user info 
 Capture clipboard contents
