@@ -1,7 +1,7 @@
 ![alt text](https://github.com/francobel/RAT/blob/main/images/xof.png)
 # <p align="center"> Code Name: Fox </p>
 ### <p align="center"> Windows based Remote Access Tool <p>
-#### <p align="center"> Language: C - Compiler: MSVC - Dependecies: WinApi, WinSock2 <p>
+#### <p align="center"> Language: C - Compiler: MSVC - Dependecies: LibC, WinApi, WinSock2 <p>
 ---
 Features                    | In Progress
 :-------------------------: | :-----------:
