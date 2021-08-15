@@ -1,6 +1,6 @@
 ![alt text](https://github.com/francobel/RAT/blob/main/images/xof.png)
 
-# <p align="center"> Code Name: Fox </p>
+# <p align="center"> Fox </p>
 
 #### <p align="center"> Language: C - Compiler: MSVC - Dependecies: LibC, WinApi, WinSock2 <p>
     
