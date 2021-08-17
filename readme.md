@@ -16,7 +16,7 @@
   
 </div>
     
-Remote access trojan created to target the Windows operating system. The goal of the program is to aid red teams in monitoring their targets as silently and persistently as possible. A system infected would be in complete control of the attacker. 
+Modular remote access trojan created to target the Windows operating system. The goal of the program is to aid red teams in monitoring their targets as silently and persistently as possible. A system infected would be in complete control of the attacker. 
   
 Current Fox Features       | Upcoming  Fox Features |
 -------------------------  | -------------------- |
