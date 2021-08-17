@@ -8,9 +8,9 @@
   
 [![GitHub issues](https://img.shields.io/github/contributors/francobel/RAT)](https://github.com/francobel/RAT/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/francobel/RAT)](https://github.com/francobel/RAT/issues)
+[![GitHub license](https://img.shields.io/github/license/francobel/RAT)](https://github.com/francobel/RAT/blob/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/francobel/RAT)](https://github.com/francobel/RAT/network)
 [![GitHub stars](https://img.shields.io/github/stars/francobel/RAT)](https://github.com/francobel/RAT/stargazers)
-[![GitHub license](https://img.shields.io/github/license/francobel/RAT)](https://github.com/francobel/RAT/blob/master/LICENSE)
 <img src="https://img.shields.io/github/watchers/francobel/RAT" />
 <img src="https://img.shields.io/github/languages/top/francobel/RAT">
   
