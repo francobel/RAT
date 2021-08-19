@@ -2,6 +2,11 @@
 
 int _tmain()
 {
+	menu();
+}
+
+void menu()
+{
 	while (1)
 	{
 		//Buffer that holds user input

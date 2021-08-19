@@ -178,4 +178,6 @@ int getMemoryUsage();
 *************************************************************************/
 int getSystemInfo();
 
+void menu();
+
 #endif
