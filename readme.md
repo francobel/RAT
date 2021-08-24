@@ -16,17 +16,17 @@
   
 </div>
     
-Modular remote access trojan created to target the Windows operating system. The goal of the program is to aid red teams in monitoring their targets as silently and persistently as possible. A system infected would be in complete control of the attacker. 
+Modular remote access trojan source code created to target the Windows operating system. The goal of the program is to aid red teams by providing them with a starting point for creating programs to monitor their targets.
   
-Current Fox Features       | Upcoming  Fox Features |
--------------------------  | -------------------- |
-Keylogger                  | Command & Control
-Exfiltrate Screenshots     | Software Dropper
-Capture Clipboard Contents | Virus Obfuscation
-Capture system/user info   | File Encryption
-View directory contents    | Root Access
-Exfiltrate data            | Backdoor
-Exfiltrate files           | HTTP Requests
+Current Fox Features       |
+-------------------------  | 
+Keylogger                  |
+Exfiltrate Screenshots     | 
+Capture Clipboard Contents |
+Capture system/user info   |
+View directory contents    |
+Exfiltrate data            |
+Exfiltrate files           |
 
 ###### Note: For a description of the project's functions review the file config.h.
 ###### Note: Project created for learning purposes.
